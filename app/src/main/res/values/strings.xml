@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AnimalFarm</string>
+    <string name="name">Name:</string>
+    <string name="leader">Leader:</string>
+    <string name="votes">Votes:</string>
+    <string-array name="districts">
+        <item>Select Area</item>
+        <item>District 1</item>
+        <item>District 2</item>
+        <item>District 3</item>
+    </string-array>
 </resources>
