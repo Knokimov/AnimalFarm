@@ -1,4 +1,4 @@
-package com.example.animalfarm
+package com.example.animalfarm.adapters
 
 import android.graphics.Color
 import android.view.LayoutInflater
@@ -8,6 +8,8 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.animalfarm.models.AlpacaParty
+import com.example.animalfarm.R
 
 class PartyAdapter(private val parties : List<AlpacaParty>) :
     RecyclerView.Adapter<PartyAdapter.ViewHolder>() {

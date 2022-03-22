@@ -1,4 +1,4 @@
-package com.example.animalfarm
+package com.example.animalfarm.activities
 
 import android.os.Bundle
 import android.view.View
@@ -11,6 +11,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.animalfarm.models.AlpacaParty
+import com.example.animalfarm.models.MainActivityViewModel
+import com.example.animalfarm.adapters.PartyAdapter
+import com.example.animalfarm.R
 import kotlinx.coroutines.*
 
 class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
@@ -33,7 +37,7 @@ class MainActivity : AppCompatActivity(), AdapterView.OnItemSelectedListener {
         }
         spinner.onItemSelectedListener = this
 
-        val nameObserver = Observer<List<AlpacaParty>> {newData ->
+        val nameObserver = Observer<List<AlpacaParty>> { newData ->
             recyclerView.layoutManager = LinearLayoutManager(applicationContext)
             recyclerView.itemAnimator = (DefaultItemAnimator())
             recyclerView.adapter = PartyAdapter(newData)

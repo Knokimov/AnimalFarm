@@ -1,8 +1,10 @@
-package com.example.animalfarm
+package com.example.animalfarm.models
 
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.animalfarm.utils.DataSource
+import com.example.animalfarm.activities.MainActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -15,7 +17,7 @@ class MainActivityViewModel: ViewModel() {
         MainActivity.scope.launch {
             withContext(MainActivity.scope.coroutineContext) {
                 val rest = DataSource()
-                val alpacaList = rest.alpacaparties.listAlpacas()
+                val alpacaList = rest.alpacaParties.listAlpacas()
                 withContext(Dispatchers.Main) {
                     setData(alpacaList.parties)
                 }
@@ -25,16 +27,10 @@ class MainActivityViewModel: ViewModel() {
     }
 
     fun getVotingData(district: Int){
-        when (district) {
-            1 -> {
-                getVotingDataJSON(1)
-            }
-            2 -> {
-                getVotingDataJSON(2)
-            }
-            3 -> {
-                getVotingDataXML()
-            }
+        if(district == 3){
+            getVotingDataXML()
+        } else {
+            getVotingDataJSON(district)
         }
     }
 
@@ -42,11 +38,11 @@ class MainActivityViewModel: ViewModel() {
         MainActivity.scope.launch {
             withContext(MainActivity.scope.coroutineContext) {
                 val rest = DataSource()
-                var votingList : List<ID> = ArrayList()
+                var votingList : List<PartyID> = ArrayList()
                 if(district == 1){
-                    votingList = rest.district1.listVotes()
+                    votingList = rest.district1Votes.listVotes()
                 } else if (district == 2){
-                    votingList = rest.district2.listVotes()
+                    votingList = rest.district2Votes.listVotes()
                 }
                 withContext(Dispatchers.Main) {
                     val votes = arrayOf(0, 0, 0, 0)
@@ -67,10 +63,10 @@ class MainActivityViewModel: ViewModel() {
             withContext(MainActivity.scope.coroutineContext) {
                 val rest = DataSource()
                 withContext(Dispatchers.Main) {
-                    val votingList = rest.district3.getFeed()
+                    val votingList = rest.district3Votes.listVotes()
                     Log.i("LOG XML", votingList.toString())
-                    for(i in 0 until votingList.parties.size){
-                        listData[i].votes = votingList.parties[i].votes.toString()
+                    for(i in 0 until votingList.partyVotes.size){
+                        listData[i].votes = votingList.partyVotes[i].votes.toString()
                     }
                     setData(listData)
                 }
